@@ -18,16 +18,15 @@
 
 #include "worker.h"
 
-void worker_context_init(struct worker_context_s * const ctx,
-                         size_t workers, int max_depth) {
-    ctx->workers = workers;
+void worker_context_init(struct worker_context_s * const ctx, int max_depth,
+                         FILE * const output) {
+    ctx->output = output;
     ctx->max_depth = max_depth;
     list_head_init(&(ctx->scope));
     hash_vector_init(&(ctx->hashes));
     work_queue_init(&(ctx->work_pool));
     pthread_mutex_init(&(ctx->mutex), NULL);
     memset(ctx->hash_key, 0x41, 0x10 * sizeof(uint8_t));
-    ctx->threads = malloc(workers * sizeof(ctx->threads[0]));
 }
 
 void worker_context_finish(struct worker_context_s * const ctx) {
@@ -75,7 +74,8 @@ void *worker_routine(void *arg) {
             if (in_scope(&(ctx->scope), link) &&
                     hash_vector_insert(&(ctx->hashes), h)) {
                 pthread_mutex_lock(&(ctx->mutex));
-                printf("%s\n", link);
+                fprintf(ctx->output, "%s\n", link);
+                fflush(ctx->output);
                 pthread_mutex_unlock(&(ctx->mutex));
                 if ((data->depth + 1) < ctx->max_depth) {
                     worker_add_work(ctx, link, data->depth + 1);
@@ -102,7 +102,9 @@ void worker_add_work(struct worker_context_s * const ctx,
     }
 }
 
-void worker_context_start(struct worker_context_s * const ctx) {
+void worker_context_start(struct worker_context_s * const ctx, size_t workers) {
+    ctx->workers = workers;
+    ctx->threads = malloc(workers * sizeof(ctx->threads[0]));
     size_t i;
     for (i = 0; i < ctx->workers; i ++)
         pthread_create(&(ctx->threads[i]), NULL, worker_routine, ctx);

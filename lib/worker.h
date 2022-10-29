@@ -21,6 +21,7 @@ struct task_info_s {
 };
 
 struct worker_context_s {
+    FILE *output;
     int max_depth;
     size_t workers;
     pthread_t *threads;
@@ -32,9 +33,9 @@ struct worker_context_s {
 };
 
 void worker_context_wait(struct worker_context_s * const);
-void worker_context_start(struct worker_context_s * const);
 void worker_context_finish(struct worker_context_s * const);
-void worker_context_init(struct worker_context_s * const, size_t, int);
+void worker_context_start(struct worker_context_s * const, size_t);
 void worker_add_work(struct worker_context_s * const, char * const, int);
+void worker_context_init(struct worker_context_s * const, int, FILE * const);
 
 #endif /* worker.h */
