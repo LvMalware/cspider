@@ -49,6 +49,7 @@ static inline int in_scope(struct list_head_s * const scope, char * const url) {
     if (!host) return 0;
     size_t size = strcspn(host += 3, ":/?");
     struct list_item_s *item = scope->first;
+    if (!item) return 1;
     while (item) {
         if (is_sub(host, size, item->data, item->size))
             return 1;
