@@ -41,7 +41,7 @@ Options:
 
 ```
 
-When started, cspider will read urls from stdin (default) or from an input file specified with `-i` and crawl them up to a maximum depththat can be changed using the `-d` flag. The input urls have a depth of 0, links found on them have a depth of 1, and so on.
+When started, cspider will read urls from stdin (default) or from an input file specified with `-i` and crawl them up to a maximum depth that can be specified with the `-d` flag. The input urls have a depth of 0, links found on them have a depth of 1, and so on.
 
 By default, it will follow every link it finds. To avoid going to third-party domains, you can use the `-s` flag to specify domains in scope. Note that all the subdomains of each scoped domain will be included. 
 
