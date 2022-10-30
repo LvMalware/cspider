@@ -13,7 +13,7 @@ void fatal_error(const char *format, ...) {
 
 void help_message(char *prog) {
     printf(
-            "%s - description\n\n"
+            "%s - Webcrawler/spider for security tests\n\n"
             "Usage: %s [option(s)]\n"
             "Options:\n"
             "   -h          Show this help message and exit.\n"
@@ -21,13 +21,12 @@ void help_message(char *prog) {
             "   -s          Add domain to scope\n"
             "   -d          Maximum depth to crawl\n"
             "   -o          Output file to log results\n"
-            "   -t          Number of concurrent threads\n",
+            "   -t          Number of concurrent threads\n\n"
+			"By Lucas V. Araujo <https://github.com/lvmalware>\n",
             prog, prog
     );
     exit(0);
 }
-
-#define WORKERS 10
 
 int main(int argc, char *argv[]) {
     int depth = 4;
