@@ -22,7 +22,7 @@ void help_message(char *prog) {
             "   -d          Maximum depth to crawl\n"
             "   -o          Output file to log results\n"
             "   -t          Number of concurrent threads\n\n"
-			"By Lucas V. Araujo <https://github.com/lvmalware>\n",
+            "By Lucas V. Araujo <https://github.com/lvmalware>\n",
             prog, prog
     );
     exit(0);
