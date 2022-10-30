@@ -9,7 +9,7 @@ First, we need a few libraries to compile it. On a debian-based system, you can 
 sudo apt install -y libcurl4-openssl-dev libxml2-dev gcc make
 ```
 
-Them, cd into cspider directory and compile:
+Then cd into cspider directory and compile:
 
 ```bash
 cd cspider #or whatever the directory is named in your system
